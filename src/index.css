@@ -1,0 +1,372 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,600;0,800;0,900;1,800;1,900&display=swap');
+
+:root {
+  --bg-dark: #020617; /* Very dark slate, almost black */
+  --bg-gradient-1: #064e3b; /* Deep emerald */
+  --bg-gradient-2: #020617; /* Back to dark slate */
+  
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  
+  --accent-green: #10b981; /* Emerald/Turf green */
+  --accent-gold: #fbbf24;  /* Trophy gold */
+  
+  --impostor-color: #ef4444; /* Red card red */
+  --crewmate-color: #10b981; /* Turf green */
+  --target-color: #fcd34d;   /* Bright gold */
+
+  --glass-bg: rgba(15, 23, 42, 0.75); /* Darker slate for boards */
+  --glass-border: rgba(16, 185, 129, 0.3); /* Subtle green border */
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  background-color: var(--bg-dark);
+  color: var(--text-primary);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: hidden;
+  position: relative;
+  /* subtle diagonal pitch pattern */
+  background-image: repeating-linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.015) 0px,
+    rgba(255, 255, 255, 0.015) 20px,
+    transparent 20px,
+    transparent 40px
+  );
+}
+
+/* Stadium Spotlights Background */
+body::before, body::after {
+  content: '';
+  position: absolute;
+  width: 70vw;
+  height: 70vw;
+  border-radius: 50%;
+  filter: blur(120px);
+  z-index: -1;
+  animation: floatBlobs 25s ease-in-out infinite alternate;
+  opacity: 0.4;
+}
+
+body::before {
+  top: -20vw;
+  left: -20vw;
+  background: radial-gradient(circle, var(--accent-green) 0%, transparent 60%);
+}
+
+body::after {
+  bottom: -20vw;
+  right: -20vw;
+  background: radial-gradient(circle, #ffffff 0%, transparent 60%);
+  animation-delay: -12.5s;
+}
+
+@keyframes floatBlobs {
+  0% { transform: translate(0, 0) scale(1); opacity: 0.2; }
+  50% { transform: translate(15vw, 5vw) scale(1.1); opacity: 0.4; }
+  100% { transform: translate(-10vw, 15vw) scale(0.9); opacity: 0.2; }
+}
+
+#root {
+  width: 100%;
+  max-width: 600px;
+  padding: 2rem;
+  z-index: 10;
+}
+
+/* Epic Typography */
+h1 {
+  font-size: 3.5rem;
+  font-weight: 900;
+  font-style: italic;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 0.5rem;
+  text-align: center;
+  background: linear-gradient(180deg, #ffffff, #cbd5e1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.8));
+}
+
+h2 {
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+p {
+  color: var(--text-secondary);
+  line-height: 1.6;
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+}
+
+/* Premium Tactical Board Card */
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border: 2px solid var(--glass-border);
+  border-top: 2px solid rgba(16, 185, 129, 0.5);
+  border-radius: 20px;
+  padding: 3rem 2rem;
+  box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.9), 0 0 40px -10px rgba(16, 185, 129, 0.15);
+  animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle inner noise texture to look like a matte physical board */
+.glass-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.12;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(40px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* 3D Premium Athletic Buttons */
+.btn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1.2rem 2rem;
+  border-radius: 12px;
+  font-weight: 900;
+  font-size: 1.1rem;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  border: none;
+  font-family: inherit;
+  width: 100%;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  position: relative;
+  overflow: visible;
+}
+
+.btn-primary {
+  background: linear-gradient(180deg, #10b981, #047857);
+  color: #fff;
+  box-shadow: 0 8px 0 #022c22, 0 15px 20px rgba(0,0,0,0.4);
+  text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+}
+
+.btn-primary:hover {
+  transform: translateY(2px);
+  box-shadow: 0 6px 0 #022c22, 0 10px 15px rgba(0,0,0,0.4);
+}
+
+.btn-primary:active {
+  transform: translateY(8px);
+  box-shadow: 0 0 0 #022c22, 0 2px 5px rgba(0,0,0,0.4);
+}
+
+.btn-outline {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-primary);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 6px 0 rgba(0,0,0,0.3);
+}
+
+.btn-outline:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(2px);
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 0 rgba(0,0,0,0.3);
+}
+
+.btn-outline:active {
+  transform: translateY(6px);
+  box-shadow: 0 0 0 rgba(0,0,0,0.3);
+}
+
+.btn-danger {
+  background: linear-gradient(180deg, #ef4444, #b91c1c);
+  color: white;
+  box-shadow: 0 8px 0 #450a0a, 0 15px 20px rgba(0,0,0,0.4);
+  text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+}
+
+.btn-danger:hover {
+  transform: translateY(2px);
+  box-shadow: 0 6px 0 #450a0a, 0 10px 15px rgba(0,0,0,0.4);
+}
+
+.btn-danger:active {
+  transform: translateY(8px);
+  box-shadow: 0 0 0 #450a0a, 0 2px 5px rgba(0,0,0,0.4);
+}
+
+/* Polished Inputs */
+.input-group {
+  margin-bottom: 2rem;
+  text-align: left;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.input-field {
+  width: 100%;
+  padding: 1.2rem 1.25rem;
+  background: rgba(0, 0, 0, 0.7);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  color: var(--text-primary);
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+  box-shadow: inset 0 4px 6px rgba(0,0,0,0.5);
+}
+
+.input-field:focus {
+  outline: none;
+  background: rgba(0, 0, 0, 0.9);
+  border-color: var(--accent-green);
+  box-shadow: 0 0 15px rgba(16, 185, 129, 0.4), inset 0 4px 6px rgba(0,0,0,0.5);
+}
+
+/* Role Reveal Epic Animation */
+.role-reveal-container {
+  padding: 2rem 0;
+  animation: zoomSpin 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes zoomSpin {
+  0% { transform: scale(0.5) rotateY(90deg); opacity: 0; }
+  100% { transform: scale(1) rotateY(0deg); opacity: 1; }
+}
+
+.role-reveal {
+  font-size: 3.5rem;
+  font-weight: 900;
+  font-style: italic;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  letter-spacing: 2px;
+}
+
+.role-impostor {
+  background: linear-gradient(to right, #ef4444, #fca5a5);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 15px rgba(239, 68, 68, 0.6));
+}
+
+.role-crewmate {
+  background: linear-gradient(to right, #10b981, #6ee7b7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 15px rgba(16, 185, 129, 0.6));
+}
+
+.role-clue {
+  font-size: 1.5rem;
+  color: var(--text-primary);
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  border-radius: 12px;
+  box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
+  position: relative;
+}
+
+.role-clue::before {
+  content: "★";
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--accent-gold);
+  font-size: 1.5rem;
+  background: var(--bg-dark);
+  padding: 0 10px;
+  border-radius: 50%;
+  border: 1px solid rgba(16, 185, 129, 0.4);
+}
+
+.clue-highlight {
+  font-size: 2.2rem;
+  font-weight: 900;
+  font-style: italic;
+  color: var(--target-color);
+  display: block;
+  margin-top: 0.5rem;
+  text-shadow: 0 0 15px rgba(251, 191, 36, 0.5);
+}
+
+.player-target {
+  color: var(--target-color);
+  text-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
+}
+
+/* Utilities */
+.pulse {
+  animation: pulse-glow 2s infinite;
+}
+
+@keyframes pulse-glow {
+  0% { box-shadow: 0 8px 0 #022c22, 0 0 0 0 rgba(16, 185, 129, 0.5); }
+  70% { box-shadow: 0 8px 0 #022c22, 0 0 0 15px rgba(16, 185, 129, 0); }
+  100% { box-shadow: 0 8px 0 #022c22, 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+
+/* Specific fix for active pulse states to align shadow */
+.pulse:active {
+  animation: none;
+}
+
+.icon {
+  margin-right: 8px;
+  font-size: 1.3em;
+}
+
+.flex-row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+/* Shake Animation */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-10px); }
+  50% { transform: translateX(10px); }
+  75% { transform: translateX(-10px); }
+}
+
+.error-shake {
+  animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
+  border-color: var(--impostor-color) !important;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.5), inset 0 4px 6px rgba(0,0,0,0.5) !important;
+}
